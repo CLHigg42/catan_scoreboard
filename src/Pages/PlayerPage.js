@@ -14,13 +14,20 @@ export const PlayerPage = () => {
   let maxNumber = 1
   const [playerData, setPlayerData] = useState({
     name: '',
-    username: '',
+    nickname: '',
     profilePhoto: null,
+
+
   });
-   const [submitChange, setSubmitChange] = useState(false)
+
+
+
+  const [submitChange, setSubmitChange] = useState(false)
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    console.log(name, value)
+    console.log(name, value)
     setPlayerData({ ...playerData, [name]: value });
   };
 
@@ -33,11 +40,10 @@ export const PlayerPage = () => {
     // Update player profile data in API or local data source
   };
   const onSubmit = () => {
-    console.log('herer eererersers')
     setSubmitChange(true)
-  }
 
-  
+
+  };
 
   function App() {
     const [images, setImages] = React.useState([]);
@@ -48,16 +54,49 @@ export const PlayerPage = () => {
       setImages(imageList);
 
 
+
     };
   }
 
   return (
 
     <div>
-      <h1>Player Page</h1>
-        <TextField id="filled-basic" label="Player Name" variant="filled" style={{paddingRight: '10px'}} />
-        
-        <TextField id="filled-basic" label="Player Nickname" variant="filled" />
+      <h1
+      style={{marginLeft: '110px'}}>
+      Player Page  
+      </h1>
+      <TextField
+        disabled={submitChange}
+        style={{marginLeft: '90px'}}
+        id="filled-basic"
+        label="Player Name"
+        variant="filled"
+        name='name'
+        onChange={(event) => handleInputChange(event)}
+      />
+      <br></br>
+      <TextField
+        disabled={submitChange}
+        style={{marginLeft: '90px'}}
+        id="filled-basic"
+        label="Player Nickname"
+        variant="filled"
+        name='nickname'
+        onChange={(event) => handleInputChange(event)}
+      />
+      <br></br>
+
+
+      <div>
+        <h2 
+        style={{marginLeft: '130px'}}>
+          Add Photo:
+          </h2>
+      </div>
+
+
+
+
       <ImageUploading
         multiple
         value={images}
@@ -75,43 +114,62 @@ export const PlayerPage = () => {
           isDragging,
           dragProps
         }) => (
-          // write your building UI
-          <div className="upload__image-wrapper">
-            <button
-              style={isDragging ? { color: "red" } : null}
-              onClick={onImageUpload}
-              {...dragProps}
-            >
-              Click or Drop here
-            </button>
-            &nbsp;
-            <button onClick={onImageRemoveAll}>Remove image</button>
-            {imageList.map((image, index) => (
-              <div key={index} className="image-item">
-                <img src={image.data_url} alt="" width="100" />
-                <div className="image-item__btn-wrapper">
-                  <button onClick={() => onImageUpdate(index)}>Update</button>
-                  <button onClick={() => onImageRemove(index)}>Remove</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </ImageUploading>
+            // write your building UI
+            <div className="upload__image-wrapper">
+              <Button
+                style={isDragging ? { color: "red" } : null}
+                onClick={onImageUpload}
+                {...dragProps}
+                variant="contained"
+                color={submitChange ? "success" : "info"}
 
-      <Button 
-        variant="contained" 
-        color={submitChange ? "success" : "info"} 
-        onClick={()=>onSubmit()}
+              >
+                Click or Drop here
+            </Button>
+            &nbsp;
+              <Button onClick={onImageRemoveAll}
+                color={submitChange ? "success" : "info"}
+                variant="contained">Remove image</Button>
+              {imageList.map((image, index) => (
+                <div key={index} className="image-item">
+                  <img src={image.data_url} alt="" width="100" />
+                  <div className="image-item__btn-wrapper">
+                    <button onClick={() => onImageUpdate(index)}>Update</button>
+                    <button onClick={() => onImageRemove(index)}>Remove</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+      </ImageUploading>
+      <br></br>
+
+      <Button
+        variant="contained"
+        color={submitChange ? "success" : "info"}
+        onClick={() => onSubmit()}
+
 
       >
-       {submitChange ? "success" : "Submit"}
+        {submitChange ? "success" : "Submit"}
       </Button>
+      {submitChange && (
+        <div>
+          Player Information:<br></br>
+         Player Name:  {playerData.name}<br></br>
+         Player Nickname:  {playerData.nickname}<br></br>
+         Player Photo (You lookin cute): <br></br>
+          {playerData.profilePhoto}
+        </div>
+
+      )}
+
+
     </div>
-    
-    
+
+
   );
   const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+  ReactDOM.render(<App />, rootElement);
 };
 
