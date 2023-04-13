@@ -1,15 +1,11 @@
-import * as React from 'react';
-import { List, ListItem, ListItemButton, ListItemIcon } from '@mui/material';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/icons-material/Comment';
+import React, { useState } from 'react';
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Checkbox, IconButton, Icon } from '@mui/material';
+import { PlayArrow, Pause, Close, Boy } from '@mui/icons-material';
+import {TournamentListMock} from '../Mock/TournamentListMock';
 
-export const CheckboxList = () => {
-  const [checked, setChecked] = React.useState([0]);
+export const TournamentList = () => {
+  const [checked, setChecked] = useState([0]);
+  const [tournaments, setTournaments] = useState(TournamentListMock);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -24,22 +20,45 @@ export const CheckboxList = () => {
     setChecked(newChecked);
   };
 
+  const handleStatus = (status) => {
+    if (status === 'Active') {
+      return <PlayArrow style={{color: "#20d423"}}/>
+    } else if (status === 'Paused') {
+      return <Pause />
+    } else {
+      return <Close style={{color: "#ed2d1f"}}/>
+    }
+  }
+
   return (
     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {[0, 1, 2, 3].map((value) => {
-        const labelId = `checkbox-list-label-${value}`;
+      {tournaments.map((value) => {
+        console.log(value)
+        const labelId = `checkbox-list-label-${value.id}`;
 
         return (
           <ListItem
-            key={value}
+            key={value.id}
             secondaryAction={
+              <div
+                style={{display: 'flex', alignItems: 'center'}}
+              >
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                <div>
+                  {value.players}
+                </div>
+                <IconButton style={{paddingLeft: 0}}>
+                  <Boy style={{color: '#ff2bc7'}} />
+                </IconButton>
+              </div>
               <IconButton edge="end" aria-label="comments">
-                <CommentIcon />
+                {handleStatus(value.status)}
               </IconButton>
+              </div>
             }
             disablePadding
           >
-            <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
+            <ListItemButton role={undefined} onClick={handleToggle(value.id)} dense>
               <ListItemIcon>
                 <Checkbox
                   edge="start"
@@ -49,7 +68,7 @@ export const CheckboxList = () => {
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+              <ListItemText id={labelId} primary={value.name} />
             </ListItemButton>
           </ListItem>
         );

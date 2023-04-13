@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { Button, Card, TextField } from '@mui/material'
+import { TournamentList } from './TournamentList';
 
 export const LandingPage = () => {
   const [buttonState, setButtonState] = useState({
@@ -52,6 +53,7 @@ export const LandingPage = () => {
       >
         Existing Tournament
       </Button>
+      <TournamentList />
     </div>
   )
 }
