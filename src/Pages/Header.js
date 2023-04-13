@@ -4,8 +4,8 @@ import {Menu } from '@mui/icons-material';
 
 export const Header = () => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1 }} >
+      <AppBar position="static" style={{backgroundColor: '#007F2E'}}>
         <Toolbar>
           <IconButton
             size="large"
