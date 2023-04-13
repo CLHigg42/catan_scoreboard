@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { PlayerPage } from './Pages/PlayerPage';
 import { AdminPage } from './Pages/AdminPage';
 import { RankingsPage } from './Pages/RankingsPage';
@@ -6,12 +7,14 @@ import './App.css';
 
 function App() {
   return (
-    <div>
-      <h1>Landing Page</h1>
-      <PlayerPage />
-      <AdminPage />
-      <RankingsPage />
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/rankings" component={RankingsPage} />
+        <Route path="/player/:id" component={PlayerPage} />
+        <Route path="/admin" component={AdminPage} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
