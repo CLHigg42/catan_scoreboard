@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import ReactDOM from "react-dom";
 import ImageUploading from "react-images-uploading";
-
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 
 export const PlayerPage = () => {
@@ -16,6 +17,7 @@ export const PlayerPage = () => {
     username: '',
     profilePhoto: null,
   });
+   const [submitChange, setSubmitChange] = useState(false)
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -30,6 +32,12 @@ export const PlayerPage = () => {
   const handleProfileUpdate = () => {
     // Update player profile data in API or local data source
   };
+  const onSubmit = () => {
+    console.log('herer eererersers')
+    setSubmitChange(true)
+  }
+
+  
 
   function App() {
     const [images, setImages] = React.useState([]);
@@ -38,13 +46,17 @@ export const PlayerPage = () => {
       // data for submit
       console.log(imageList, addUpdateIndex);
       setImages(imageList);
+
+
     };
   }
 
   return (
+
     <div>
       <h1>Player Page</h1>
-        <TextField id="filled-basic" label="Player Name" variant="filled" />
+        <TextField id="filled-basic" label="Player Name" variant="filled" style={{paddingRight: '10px'}} />
+        
         <TextField id="filled-basic" label="Player Nickname" variant="filled" />
       <ImageUploading
         multiple
@@ -73,7 +85,7 @@ export const PlayerPage = () => {
               Click or Drop here
             </button>
             &nbsp;
-            <button onClick={onImageRemoveAll}>Remove all images</button>
+            <button onClick={onImageRemoveAll}>Remove image</button>
             {imageList.map((image, index) => (
               <div key={index} className="image-item">
                 <img src={image.data_url} alt="" width="100" />
@@ -86,6 +98,15 @@ export const PlayerPage = () => {
           </div>
         )}
       </ImageUploading>
+
+      <Button 
+        variant="contained" 
+        color={submitChange ? "success" : "info"} 
+        onClick={()=>onSubmit()}
+
+      >
+       {submitChange ? "success" : "Submit"}
+      </Button>
     </div>
     
     
