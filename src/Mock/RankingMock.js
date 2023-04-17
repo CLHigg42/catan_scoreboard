@@ -11,7 +11,7 @@ export const RankingMock = [
     },
     {
         name: 'Brittany',
-        nickname: 'Lilly Killer',
+        nickname: 'Lily Lover',
         points: 3
     },
     {
