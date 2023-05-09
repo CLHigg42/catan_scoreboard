@@ -14,8 +14,10 @@ export const RankingsPage = () => {
   useEffect(() => {
     // Fetch player scores from API or local data source
     // and update the state with the fetched data
-    const sorted = playerScores.sort(function(a,b){return b.points - a.points});
-    setPlayerScores(sorted);
+    const sortByScore = [...playerScores];
+    sortByScore.sort(function(a,b){return b.points - a.points});
+    console.log('herereeeerz', sortByScore)
+    setPlayerScores(sortByScore);
   }, []);
 
 
