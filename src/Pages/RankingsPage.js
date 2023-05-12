@@ -16,19 +16,18 @@ export const RankingsPage = () => {
     // and update the state with the fetched data
     const sortByScore = [...playerScores];
     sortByScore.sort(function(a,b){return b.points - a.points});
-    console.log('herereeeerz', sortByScore)
     setPlayerScores(sortByScore);
   }, []);
 
 
-  const displayRankings = () => {
+  // const displayRankings = () => {
    
-  }
+  // }
 
 
   return (
-
     <div>
+      <h1>Rankings Page</h1>
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         { playerScores.map((scores) => {
         return (
@@ -61,9 +60,6 @@ export const RankingsPage = () => {
             </div>
         )}) }
       </List>
-    
-      <h1>Rankings Page</h1>
-      {/* Display player scores in a list or table format */}
     </div>
   );
 };
