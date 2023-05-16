@@ -7,6 +7,7 @@ import { LandingPage } from './Pages/LandingPage';
 import { Header } from './Pages/Header';
 import { ErrorPage } from './Pages/ErrorPage'
 import { TournamentList } from './Pages/TournamentList';
+import {Footer } from './Pages/Footer';
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
         <Route path="/tournaments" element={<TournamentList/>} />
         <Route path="/*" element={<ErrorPage/>} />
       </Routes>
+      <Footer />
+      
+
+      
       </div>
   );
 }
